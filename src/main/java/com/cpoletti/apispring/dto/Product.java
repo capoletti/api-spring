@@ -1,0 +1,21 @@
+package com.cpoletti.apispring.dto;
+
+import lombok.AllArgsConstructor;
+import lombok.Builder;
+import lombok.Data;
+import lombok.NoArgsConstructor;
+
+import java.io.Serializable;
+
+@Data
+@Builder
+@NoArgsConstructor
+@AllArgsConstructor
+public class Product implements Serializable {
+
+    private int id;
+    private String name;
+    private int qty;
+    private long price;
+
+}

@@ -8,11 +8,7 @@ import com.cpoletti.apispring.util.UtilDate;
 import org.springframework.stereotype.Service;
 import lombok.RequiredArgsConstructor;
 
-import java.time.LocalDate;
-import java.util.Date;
 import java.util.List;
-import java.util.stream.Collectors;
-import java.util.stream.Stream;
 
 @Service
 @RequiredArgsConstructor
@@ -45,4 +41,4 @@ public class CustomerService {
 
         return customer;
     }
-    }
+}
