@@ -5,6 +5,8 @@ import com.cpoletti.apispring.entity.CustomerEntity;
 import com.cpoletti.apispring.repository.CustomerRepository;
 
 import com.cpoletti.apispring.util.UtilDate;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.PageRequest;
 import org.springframework.stereotype.Service;
 import lombok.RequiredArgsConstructor;
 
@@ -16,25 +18,14 @@ public class CustomerService {
 
     private final CustomerRepository customerRepository;
 
-    public List<Customer> listAll() {
-        return customerRepository.findAll().stream().map(
-                        e -> Customer.builder()
-                                .id(e.getId())
-                                .name(e.getName())
-                                .birth(e.getBirth())
-                                .age(UtilDate.calculateAge(e.getBirth()))
-                                .build())
-                .toList();
+    public Page<Customer> getCustomers(PageRequest pageable) {
+        return customerRepository.findAll(pageable).map(entity -> Customer.of(entity));
     }
 
-    public Customer add(Customer customer) {
+    public Customer save(Customer customer) {
 
-        CustomerEntity customerEntity = CustomerEntity.builder()
-                .name(customer.getName())
-                .birth(customer.getBirth())
-                .build();
-
-        customerRepository.save(customerEntity);
+        CustomerEntity customerEntity = Customer.to(customer);
+        customerRepository.save(Customer.to(customer));
 
         customer.setId(customerEntity.getId());
         customer.setAge(UtilDate.calculateAge(customer.getBirth()));

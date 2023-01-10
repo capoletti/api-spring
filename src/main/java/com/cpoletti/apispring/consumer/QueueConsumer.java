@@ -26,7 +26,6 @@ public class QueueConsumer {
 
     @RabbitListener(queues = {"${queue.name}"})
     public void receive(Customer customer) {
-        //System.out.println("consumer: "+ customer);
-        customerService.add(customer);
+        customerService.save(customer);
     }
 }

@@ -5,6 +5,7 @@ import com.cpoletti.apispring.dto.Product;
 import com.cpoletti.apispring.entity.ProductEntity;
 import com.cpoletti.apispring.repository.ProductRepository;
 import lombok.RequiredArgsConstructor;
+import org.springframework.data.domain.PageRequest;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
@@ -15,7 +16,7 @@ public class ProductService {
 
     private final ProductRepository productRepository;
 
-    public List<Product> listAll() {
+    public List<Product> findAll() {
         return productRepository.findAll().stream().map(
                 e -> Product.builder()
                         .id(e.getId())

@@ -1,5 +1,6 @@
 package com.cpoletti.apispring.config;
 
+import org.springframework.beans.factory.annotation.Value;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.data.redis.connection.RedisStandaloneConfiguration;
@@ -13,12 +14,21 @@ import org.springframework.data.redis.serializer.StringRedisSerializer;
 @EnableRedisRepositories
 public class RedisConfig {
 
+    @Value("${redis.hostname}")
+    private String redisHostName;
+
+    @Value("${redis.port}")
+    private int redisPort;
+
+    @Value("${redis.password}")
+    private String redisPass;
+
     @Bean
     public JedisConnectionFactory connectionFactory(){
         RedisStandaloneConfiguration configuration = new RedisStandaloneConfiguration();
-        configuration.setHostName("localhost");
-        configuration.setPort(49153);
-        configuration.setPassword("redispw");
+        configuration.setHostName(redisHostName);
+        configuration.setPort(redisPort);
+        configuration.setPassword(redisPass);
         return new JedisConnectionFactory(configuration);
     }
 
